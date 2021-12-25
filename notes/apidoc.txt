@@ -1,0 +1,6 @@
+Command :
+apidoc -f ".*\\.js$" -i server/controllers -o apidoc/ 
+
+Mongo Import/Export
+/usr/bin/mongodump  -d dbname -o /home/gym/ (location) - Export
+mongorestore -d dbname /home/gym/ (location) - Import

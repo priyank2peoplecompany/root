@@ -1,0 +1,1 @@
+global.mongoose = require('mongoose');

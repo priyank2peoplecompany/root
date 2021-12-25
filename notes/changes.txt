@@ -1,0 +1,27 @@
+=> make common function for this
+
+if (params.image != undefined && params.image != '') {
+    let file = params.image;
+    let dirname = `server/assets/uploads/service/${file}`; // <--- Why are we passing file name here?
+    common.ensureDirectoryExistence(dirname);
+    common.tmpToOriginal(file, 'service/');
+    params['image'] = `service/${file}`;
+}
+
+--------------------------------------------------------------------------------
+
+=> change exec,function to then whenever
+
+--------------------------------------------------------------------------------
+
+=> chatRooms.getGroupDetail(params.room_id, req.user._id)
+
+change to 
+
+chatRooms.findById( params.room_id , 'id' ) 
+// OR
+chatRooms.findOne( { id : params.room_id , } , 'id' ) 
+
+--------------------------------------------------------------------------------
+
+=> 
