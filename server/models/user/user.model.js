@@ -1,58 +1,71 @@
 const mongooseLeanGetters = require('mongoose-lean-getters');
 const userSchema = new Schema({
-    role_id: {
-        type: String,
-        required: [true],
-        ref: 'roles'
-    },
     name: {
         type: String,
         //rquired: true,
     },
-    profile_pic: {
+    phone: {
         type: String,
-        get: getFullUrl,
+        rquired: true,
+        unique: true,
+        //get: getFullUrl,
+    },
+    phone2: {
+        type: String,
+        default: null,
+    },
+    category_ids: [{        
+        type: mongoose.Schema.Types.ObjectId,
+        required: [true],
+        ref: 'categories'        
+    }],
+    user_otp: {
+        type: JSON,
+        default:null
+    },
+    company: {
+        type: String,
+        default: null 
+    },
+    slogan: {
+        type: String,
+        default: null 
+    },
+    address: {
+        type: String,
+        default: null 
+    },
+    website: {
+        type: String,
+        default: null
     },
     email: {
         type: String,
-        //rquired: true,
+        default: null 
     },
-    password: {
+    Social: {
+        type: Array,
+        default: null
+    },
+    products: {
+        type: Array,
+        default:null
+    },
+    icon: {
         type: String,
+        default: null 
     },
-    phone: {
-        type: Number,
-        unique: true,
-        rquired: [true],
+    photos: {
+        type: Array,
+        default: null 
     },
-    user_otp: {
-        type: JSON,
+    device_id: {
+        type: String,
+        default: null 
     },
-    is_online: {
-        type: Boolean,
-        rquired: true,
-        default: false // True , False
-    },
-    is_profile_complete: {
-        type: Boolean,
-        rquired: [true],
-        default: false // True , False
-    },
-    gender: {
-        type: Number, // 0 - Male , 1 - Female , 2 - Other
-    },
-    birthdate: {
-        type: Date,
-    },
-    height: {
-        type: Number,
-    },
-    unread: {
-        type: Number,
-        default: 0
-    },
-    weight: {
-        type: Number,
+    device_type: {
+        type: String,
+        default: null 
     },
     created_at: {
         type: Date,
@@ -78,9 +91,3 @@ userSchema.plugin(mongoose_delete, { deletedBy: false });
 const User = mongoose.model('users', userSchema);
 
 module.exports = User;
-
-function getFullUrl(url) {
-    if (url != undefined) return `${process.env.ASSETS_URL}uploads/${url}`;
-    else return '';
-
-}

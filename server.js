@@ -57,8 +57,12 @@ global.mongoose = require('mongoose');
 global.Schema = mongoose.Schema;
 global.mongoose_delete = require('mongoose-delete');
 mongoose.set('debug', true);
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 require('./server/config/config');
 global.model = require('./server/models');
+
 
 /*
 This will include helpers we use through out application

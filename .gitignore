@@ -4,5 +4,5 @@ apidoc
 server1.js
 .env
 .vscode/
-*.notes/*
+notes
 package-lock.json

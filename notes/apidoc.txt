@@ -4,3 +4,9 @@ apidoc -f ".*\\.js$" -i server/controllers -o apidoc/
 Mongo Import/Export
 /usr/bin/mongodump  -d dbname -o /home/gym/ (location) - Export
 mongorestore -d dbname /home/gym/ (location) - Import
+
+APi Document Url : https://docs.google.com/spreadsheets/d/1_RDOzMWZgWg0lEs5l1z2SbNFCLMEAJedUZOc0W1JZKk/edit#gid=0
+
+URL: http://www.bulk24sms.com/SignIn 
+Username: Rajasthanprinters 
+Password: 684031
