@@ -1,10 +1,10 @@
-const redis = require('../../helpers/redis.helper');
+const axios = require('axios');
 const bcrypt = require('bcrypt-nodejs');
 const common = require('../../helpers/common.helper');
+const redis = require('../../helpers/redis.helper');
+const upload = require('../../helpers/image-upload.helper').imgFileUpload;
 require('dotenv-expand')(require('dotenv').config());
 
-const upload = require('../../helpers/image-upload.helper').imgFileUpload;
-const axios = require('axios');
 /**
  * @api {post} /user/sendotp Send OTP
  * @apiName Send OTP
@@ -245,6 +245,24 @@ exports.getUserDetail = (condition) => {
         .lean({ getters: true });
 }
 
+/**
+ * @api {post} /file/upload Upload Files
+ * @apiHeader {Authorization} Authorization Users unique access-key.
+ * @apiName Upload Files
+ * @apiGroup File Upload
+ * @apiParam {Array}   files    Photo ( Array of Photos)
+ */
+exports.UploadFiles = (req, res) => {    
+    upload(req, res).then(() => {
+        let filesdata = req.body.file;
+        if (filesdata.length > 0) cres.send(res, filesdata, "File upload successfully");
+        else cres.error(res, 'Something went wrong', {});
+    }).catch(err => {
+        console.log("err=>",err);
+        cres.error(res, 'Something11 went wrong', {});
+    })
+}
+
 function maintainRedisAndLog(res, data, login) {
     data['socket_id'] = common.generateKey();
     return redis.setKey(data).then(key => {
@@ -284,22 +302,5 @@ function sendOtpMessage(params, res, user_otp, message, action, userData = '') {
         // handle error
         console.log("Error====>",error);
         cres.error(res, "Error", {});
-    })
-}
-
-/**
- * @api {post} /file/upload Upload Files
- * @apiHeader {Authorization} Authorization Users unique access-key.
- * @apiName Upload Files
- * @apiGroup File Upload
- * @apiParam {Array}   files    Feed Photo ( Array of Photos)
- */
-exports.UploadFiles = (req, res) => {
-    upload(req, res).then(() => {
-        let filesdata = req.body.file;
-        if (filesdata.length > 0) cres.send(res, filesdata, "File upload successfully");
-        else cres.error(res, 'Something went wrong', {});
-    }).catch(err => {
-        cres.error(res, 'Something went wrong', {});
     })
 }

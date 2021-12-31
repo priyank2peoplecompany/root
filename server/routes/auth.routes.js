@@ -19,7 +19,6 @@ const routes = [
     Router.post("/chat-room/update", authMiddleware, controllers.chatrooms.updateRoom),
     Router.post("/chat-room/user/add", authMiddleware, controllers.chatrooms.addUser),
     Router.post("/chat-room/user/remove", authMiddleware, controllers.chatrooms.removeUser),
-
     
     //Pushnotification
     //Router.post("/pushnotification/sendpushnotification", authMiddleware, controllers.userdeviceinfo.sendpushnotification),

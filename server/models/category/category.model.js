@@ -10,12 +10,10 @@ const categorySchema = new Schema({
         rquired: true,
     },
     children: [{
-        name: String,
-        default:''
-    },
-    {
-        images: String,
-        default:''
+        name: { type: String, default: '' },
+        images: { type: Array, default: '' },
+        created_at: { type: Date,default: Date.now },
+        updated_at: {type: Date,default: Date.now }    
     }],
     created_at: {
         type: Date,

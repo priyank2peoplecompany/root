@@ -18,19 +18,24 @@ exports.addCategory = (req, res) => {
         this.getCategoryDetail(condition).then(categoryData => {
             // 1. Check if user is registered or not
             if (categoryData) {
-                cres.send(res, {}, 'Error in updating user profile');
+                cres.send(res, {}, 'Category name already exists');
             } else {
+
+                //params.videos = common.moveFiles(params.videos, params.new_videos, 'community', params.removed_videos);    
+                params['images'] = common.moveFiles([],params.images, 'category');
                 if(!params.parent_id){
                     model.Category.create(params).then(function (udata) {
-                        cres.send(res, params, "Category added successfully");
+                        cres.send(res, udata, "Category added successfully");
                     }).catch(function (err) {
                         console.log("Error==>", err);
                         cres.error(res, "Error", {});
                     });
                 }
                 else{
-                    let children = { name: params.name, images : params.images}
-                    model.Category.updateOne({ _id: params.parent_id },{ $push:  children }).then(function (udata) {
+                    
+                    let children = [{ images: params.images , name: params.name }];
+                    console.log("params========>", children); 
+                    model.Category.updateOne({ _id: mongoose.Types.ObjectId(params.parent_id) },{ $push: { "children": { $each: children } } }).then(function (udata) {
                         cres.send(res, udata, "Category added successfully");
                     }).catch(function (err) {
                         console.log("Error==>", err);

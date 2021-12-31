@@ -11,8 +11,4 @@ URL: http://www.bulk24sms.com/SignIn
 Username: Rajasthanprinters 
 Password: 684031
 
-
-mv root/* .
-
-mv root/.git .
-mv root/.gitignore .
+ssh shwet@140.238.227.200
