@@ -5,7 +5,6 @@ require('dotenv-expand')(require('dotenv').config());
 
 const upload = require('../../helpers/image-upload.helper').imgFileUpload;
 const axios = require('axios');
-
 /**
  * @api {post} /user/sendotp Send OTP
  * @apiName Send OTP
@@ -13,8 +12,9 @@ const axios = require('axios');
  * @apiParam {integer}  phone       Phone Number
  */
 exports.SendOTP = (req, res) => {
-    let required_fields = { phone: 'integer', role: 'string' }
+    let required_fields = { phone: 'integer' }
     let params = req.body;
+    
     if (vh.validate(res, required_fields, params)) {
         let condition = { phone: params.phone };
         this.getUserDetail(condition).then(userData => {
@@ -30,7 +30,7 @@ exports.SendOTP = (req, res) => {
                     otp = common.getRandom(1000, 9999);
                     remaining_min = 10;
                     attemp = parseInt(0);
-                    let message = `${otp} is your one time password to processed on FitApp.It is valid for ${remaining_min} minutes.Do not share you OTP with anyone.`;
+                    let message = `${otp} is your one time password to processed on RootApp.It is valid for ${remaining_min} minutes.Do not share you OTP with anyone.`;
                     let user_otp = { expire_time, code: otp, attemp }
                     sendOtpMessage(params, res, user_otp, message, 'update', userData);
                 }
@@ -43,7 +43,7 @@ exports.SendOTP = (req, res) => {
                         }
                         remaining_min = common.getMinutesBetweenDates(expire_time, currenttime);
                         attemp = parseInt(userData.user_otp.attemp) + parseInt(1);
-                        let message = `${otp} is your one time password to processed on FitApp.It is valid for ${remaining_min} minutes.Do not share you OTP with anyone.`;
+                        let message = `${otp} is your one time password to processed on RootApp.It is valid for ${remaining_min} minutes.Do not share you OTP with anyone.`;
                         let user_otp = { expire_time, code: otp, attemp }
                         sendOtpMessage(params, res, user_otp, message, 'update', userData);
                     }
@@ -51,7 +51,7 @@ exports.SendOTP = (req, res) => {
                 }
             } else {
                 let otp = common.getRandom(1000, 9999);
-                let message = `${otp} is your one time password to processed on FitApp.It is valid for 10 minutes.Do not share you OTP with anyone.`;
+                let message = `${otp} is your one time password to processed on RootApp.It is valid for 10 minutes.Do not share you OTP with anyone.`;
                 let user_otp = { code: otp, expire_time: common.getCurrentTime(10), attemp: 0 }
                 sendOtpMessage(params, res, user_otp, message, 'add', '');
             }
@@ -257,7 +257,9 @@ function maintainRedisAndLog(res, data, login) {
 }
 
 function sendOtpMessage(params, res, user_otp, message, action, userData = '') {
-    let url = `http://api.bulk24sms.com/api/send_http.php?authkey=${process.env.API_KEY}&mobiles=${params.phone}&message=${message}&sender=${process.env.SENDER_ID}&route=${process.env.ROUTE_NO}`;
+    //"http://sms.bulksmsserviceproviders.com/api/send_http.php?authkey=f66587dacf07c6803f87be0bb959cf2c&mobiles=9033891845&message=verification+code%3A+%7B%23var%23%7D%0D%0ARequest+From+IP%3A+%7B%23var%23%7D%0D%0ANumber%3A+%7B%23var%23%7D%0D%0ASR+Technology+Services+Pvt.+Ltd..&sender=SRTSIN&route=4&Template_ID=1107161518772416122"
+    let url = `http://sms.bulksmsserviceproviders.com/api/send_http.php?authkey=${process.env.API_KEY}&mobiles=${params.phone}&message=${message}&sender=${process.env.SENDER_ID}&route=${process.env.ROUTE_NO}&Template_ID=${process.env.TEMPLATE_ID}`;
+    console.log("url====>",url);
     axios.get(url).then(function (response) {
         // handle success
         console.log("Success=========>",response);

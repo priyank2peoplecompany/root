@@ -1,9 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express(); //, cors = require('cors');
+const cors = require('cors')
 
 app.use(bodyParser.json({ limit: '50mb' })); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' })); // to support URL-encoded bodies
+app.use(cors())
 
 app.set('view engine', 'ejs');
 app.use(function (req, res, next) {
@@ -13,7 +15,7 @@ app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'appid, X-Requested-With,Authorization, X-HTTP-Method-Override, Content-Type, Accept');
 
-    global.baseurl = ' https://' + req.get('host') + '/';
+    global.baseurl = ' http://' + req.get('host') + '/';
     global.assetspath = process.env.BASE_PATH;
 
     next();
@@ -62,7 +64,6 @@ mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 require('./server/config/config');
 global.model = require('./server/models');
-
 
 /*
 This will include helpers we use through out application

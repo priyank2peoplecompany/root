@@ -4,6 +4,8 @@ const authMiddleware = require('../middlewares/auth/auth.middleware').authentica
 
 const routes = [
 
+    /* Category */
+    Router.post("/category/add", authMiddleware, controllers.category.addCategory),
     
     /* Chatting */
     Router.post("/chat-room", authMiddleware, controllers.chatrooms.getDetail),

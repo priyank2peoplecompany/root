@@ -10,3 +10,9 @@ APi Document Url : https://docs.google.com/spreadsheets/d/1_RDOzMWZgWg0lEs5l1z2S
 URL: http://www.bulk24sms.com/SignIn 
 Username: Rajasthanprinters 
 Password: 684031
+
+
+mv root/* .
+
+mv root/.git .
+mv root/.gitignore .

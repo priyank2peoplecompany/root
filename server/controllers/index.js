@@ -1,3 +1,6 @@
+// Category Controller
+exports.category = require('./category/category.controller');
+
 // Chat Message Controller
 exports.chatmessages = require('./chatting/chat-messages.controller');
 

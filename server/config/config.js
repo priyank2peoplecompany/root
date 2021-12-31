@@ -1,7 +1,7 @@
 const DB_DETAILS = {
 	"local": {
 		"db_host": "localhost",
-		"db_name": "gym",
+		"db_name": "root",
 		"db_username": "",
 		"db_passoword": "",
 		"db_dialect": "",
@@ -9,7 +9,7 @@ const DB_DETAILS = {
 	},
 	"development": {
 		"db_host": "localhost",
-		"db_name": "gym",
+		"db_name": "root",
 		"db_username": "",
 		"db_passoword": "",
 		"db_dialect": "",
