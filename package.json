@@ -21,6 +21,7 @@
     "express": "^4.17.2",
     "html2canvas-proxy": "^1.0.1",
     "https": "^1.0.0",
+    "mongodb": "^4.2.2",
     "mongoose": "^5.13.13",
     "mongoose-delete": "^0.4.0",
     "mongoose-lean-getters": "^0.3.0",
