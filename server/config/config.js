@@ -27,6 +27,13 @@ const DB_DETAILS = {
 
 const env_db = DB_DETAILS[process.env.NODE_ENV];
 
-//mongoose.connect(`mongodb+srv://${env_db.db_username}:${env_db.db_password}@rootapp.nxvir.mongodb.net/${env_db.db_name}?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true });
-mongoose.connect(`mongodb+srv://root_db_user:wHTEc4WubhZSP9k5@rootapp.nxvir.mongodb.net/rootapp?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true });
-//mongoose.connect(`mongodb+srv://${env_db.db_host}:27017/${env_db.db_name}`, { useUnifiedTopology: true, useNewUrlParser: true });
+
+//mongoose.connect(`${env_db.db_host}://${env_db.db_username}:${env_db.db_password}@tinykillers.nxvir.mongodb.net/${env_db.db_name}?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect(`mongodb://${env_db.db_host}/${env_db.db_name}`, { useUnifiedTopology: true, useNewUrlParser: true });
+var db = mongoose.connection;
+//Bind connection to error event (to get notification of connection errors)
+
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once("open", function () {
+	console.log("Connected successfully");
+});
