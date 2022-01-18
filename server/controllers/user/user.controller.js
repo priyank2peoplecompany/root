@@ -124,7 +124,7 @@ exports.UpdateUser = (req, res) => {
         old_icon: 'optional|string',
         company: 'company',
         slogan: 'optional|string',
-        address: 'optional|integer',
+        address: 'optional|string',
         website: 'optional|string',
         products: 'optional|array',
         photos: 'optional|array',
