@@ -30,7 +30,10 @@ exports.SendOTP = (req, res) => {
                     otp = common.getRandom(1000, 9999);
                     remaining_min = 10;
                     attemp = parseInt(0);
-                    let message = `${otp} is your one time password to processed on RootApp.It is valid for ${remaining_min} minutes.Do not share you OTP with anyone.`;
+                    let message= `verification code: ${otp} Request From IP: 127.0.0.1 
+                    Number: 1
+                    SR Technology Services Pvt. Ltd..`;
+                    //let message = `${otp} is your one time password to processed on RootApp.It is valid for ${remaining_min} minutes.Do not share you OTP with anyone.`;
                     let user_otp = { expire_time, code: otp, attemp }
                     sendOtpMessage(params, res, user_otp, message, 'update', userData);
                 }

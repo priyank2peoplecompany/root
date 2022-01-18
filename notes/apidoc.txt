@@ -11,4 +11,40 @@ URL: http://www.bulk24sms.com/SignIn
 Username: Rajasthanprinters 
 Password: 684031
 
+SFTP  port 22 
+140.238.227.200
+shwet
 ssh shwet@140.238.227.200
+xRBwh5mrty
+Finger Print : SHA256:H8BJ0huRCpgSob5vsf475k3ywaej97THEn2+o5hNuKc.
+
+
+root_db_user
+CV\L#4\?^qQ-aj7g
+
+mongodb+srv://root_db_user:CV\L#4\?^qQ-aj7g@root.nxvir.mongodb.net/test
+
+
+
+============================
+New Server Details
+=============================
+SSH IP: 185.224.139.40
+SSH Port: 22
+SSH Username: root
+IPV6: 2a02:4780:d:762e::1
+Pwd : ke5#2YWNExX)LC37
+ssh root@185.224.139.40
+===============================
+
+https://github.com/priyank2peoplecompany/root.git
+
+
+
+db.createUser(
+  {
+    user: "admin",
+    pwd: "pSeW5VZ2Edgc",
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+  }
+)
