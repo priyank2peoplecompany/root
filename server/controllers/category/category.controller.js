@@ -107,17 +107,17 @@ exports.UpdateUser = (req, res) => {
 
 
 /**
- * @api {post} /user/list List User
+ * @api {post} /category/list List Category
  * @apiHeader {Authorization} Authorization Users unique access-key.
- * @apiName List All User
- * @apiGroup User
+ * @apiName List All Category
+ * @apiGroup Category
  * @apiParam {integer}  page        Page Number
  * @apiParam {integer}  limit       Number of record display per page
  * @apiParam {string}   sort        Sort By ( asc or desc )
  * @apiParam {string}   orderby     Order By ( Field Name : _id,created_at,updated_at etc... )
  * @apiParam {string}   [search]    Search By ( Search By name )
  */
-exports.ListUser = (req, res) => {
+exports.ListCategory = (req, res) => {
     let required_fields = { page: 'integer', limit: 'integer', sort: 'string', orderby: 'string' }
     let params = req.body;
     if (vh.validate(res, required_fields, params)) {
@@ -130,17 +130,17 @@ exports.ListUser = (req, res) => {
             let searchtxt = params.search;
             condition['name'] = { '$regex': new RegExp("^" + searchtxt, "i") };
         }
-        model.User.countDocuments(condition).exec((err, data) => {
+        model.Category.countDocuments(condition).exec((err, data) => {
             if (err) cres.error(res, err, {});
             else {
                 if (data > 0) {
                     let page = params.page;
                     let skip = 0; if (page > 1) { skip = (page - 1) * params.limit }
                     let returndata = { totalrecord: data }
-                    model.User.find(condition).sort(sortby).skip(skip).limit(params.limit).lean().then(userdata => {
-                        if (userdata.length > 0) {
-                            returndata['userdata'] = userdata;
-                            cres.send(res, returndata, 'User List')
+                    model.Category.find(condition).sort(sortby).skip(skip).limit(params.limit).lean().then(categorydata => {
+                        if (categorydata.length > 0) {
+                            returndata['categorydata'] = categorydata;
+                            cres.send(res, returndata, 'Category List')
                         }
                         else cres.send(res, [], 'No record found');
                     }).catch(err => {
@@ -151,13 +151,4 @@ exports.ListUser = (req, res) => {
             }
         });
     }
-}
-
-/**
- * Get the detail of given Phone Number 
- */
-exports.getCategoryDetail = (condition) => {
-    return model.Category.findOne(condition)
-        .select('-created_at -updated_at -deleted')
-        .lean({ getters: true });
 }

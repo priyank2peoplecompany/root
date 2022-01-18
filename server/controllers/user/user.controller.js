@@ -257,7 +257,9 @@ exports.getUserDetail = (condition) => {
  */
 exports.UploadFiles = (req, res) => {    
     upload(req, res).then(() => {
+        console.log("herehrher");
         let filesdata = req.body.file;
+        console.log("filesdata=====>",filesdata);
         if (filesdata.length > 0) cres.send(res, filesdata, "File upload successfully");
         else cres.error(res, 'Something went wrong', {});
     }).catch(err => {
