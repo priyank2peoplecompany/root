@@ -101,6 +101,7 @@ exports.ValidateOTP = (req, res) => {
 /**
  * @api {post} /user/update Update User 
  * @apiName Update User 
+ * @apiHeader {Authorization} Authorization Users unique access-key.
  * @apiGroup User
  * @apiParam {string}       email                   Email Address
  * @apiParam {string}       [icon]                  Icon
@@ -159,6 +160,7 @@ exports.UpdateUser = (req, res) => {
 /**
  * @api {get} /user/logout Logout User
  * @apiName Logout User
+ * @apiHeader {Authorization} Authorization Users unique access-key.
  * @apiGroup User
  */
 exports.UserLogout = (req, res) => {

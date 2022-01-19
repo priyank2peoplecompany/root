@@ -4,6 +4,7 @@ const upload = require('../../helpers/image-upload.helper').imgFileUpload;
 
 /**
  * @api {post} /category/add Add Category
+ * @apiHeader {Authorization} Authorization Users unique access-key.
  * @apiName Add New Category
  * @apiGroup Category
  * @apiParam {string}   name            Category Name
@@ -44,65 +45,6 @@ exports.addCategory = (req, res) => {
         });
     }
 }
-
-/**
- * @api {post} /user/update Update User 
- * @apiName Update User 
- * @apiGroup User
- * @apiParam {string}       email                   Email Address
- * @apiParam {string}       [icon]                  Icon
- * @apiParam {string}       [old_icon]              Old Icon
- * @apiParam {array}        category_ids            Category Ids 
- * @apiParam {string}       company                 Company Name
- * @apiParam {string}       [slogan]                Slogan
- * @apiParam {string}       [address]               Address
- * @apiParam {string}       [website]               Website
- * @apiParam {string}       [email]                 Email
- * @apiParam {array}        [socials]               Socials
- * @apiParam {array}        [products]              Products
- * @apiParam {array}        [photos]                Photos
- * @apiParam {array}        [old_photos]            Old Photos
- */
-exports.UpdateUser = (req, res) => {
-    let required_fields = {
-        email: 'string',
-        category_ids: 'array',
-        icon: 'optional|string',
-        old_icon: 'optional|string',
-        company: 'company',
-        slogan: 'optional|string',
-        address: 'optional|integer',
-        website: 'optional|string',
-        products: 'optional|array',
-        photos: 'optional|array',
-        old_photos: 'optional|array'
-    }
-
-    let params = req.body;
-
-    if (vh.validate(res, required_fields, params)) {
-        let condition = { _id: mongoose.Types.ObjectId(req.user._id) }
-        this.getUserDetail(condition).then(data => {
-            if (data && data._id) {
-                params['icon'] = common.moveFile(params.icon, 'user', params.old_icon);
-                model.User.updateOne({ _id: mongoose.Types.ObjectId(data._id) }, { $set: params }).then(function (udata) {
-                    if (params.icon != undefined && params.icon != '') {
-                        params['icon'] = `${process.env.ASSETS_URL}uploads/${params['icon']}`;
-                    }
-                    params['_id'] = req.user._id;
-                    cres.send(res, params, "User updated successfully");
-                }).catch(function (err) {
-                    console.log("Error==>", err);
-                    cres.error(res, "Error", {});
-                });
-            }
-            else cres.send(res, {}, 'Error in updating user profile')
-        }).catch(err => {
-            cres.error(res);
-        });
-    }
-}
-
 
 /**
  * @api {post} /category/list List Category
