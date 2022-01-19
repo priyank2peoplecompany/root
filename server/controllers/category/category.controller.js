@@ -8,7 +8,7 @@ const upload = require('../../helpers/image-upload.helper').imgFileUpload;
  * @apiGroup Category
  * @apiParam {string}   name            Category Name
  * @apiParam {array}    images          Category Images   
- * @apiParam {string}   parent_id       Parent Category   
+ * @apiParam {string}   [parent_id]     Parent Category ( pass parent_id when you have create sub category)  
  */
 exports.addCategory = (req, res) => {
     let required_fields = { name: 'string' }
@@ -32,9 +32,7 @@ exports.addCategory = (req, res) => {
                     });
                 }
                 else{
-                    
                     let children = [{ images: params.images , name: params.name }];
-                    console.log("params========>", children); 
                     model.Category.updateOne({ _id: mongoose.Types.ObjectId(params.parent_id) },{ $push: { "children": { $each: children } } }).then(function (udata) {
                         cres.send(res, udata, "Category added successfully");
                     }).catch(function (err) {
