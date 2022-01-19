@@ -8,19 +8,6 @@ const routes = [
     Router.post("/category/add", authMiddleware, controllers.category.addCategory),
     Router.post("/category/list", authMiddleware, controllers.category.ListCategory),
     
-    /* Chatting */
-    Router.post("/chat-room", authMiddleware, controllers.chatrooms.getDetail),
-    Router.post("/chat-rooms", authMiddleware, controllers.chatrooms.getRooms),
-    Router.post("/check-room", authMiddleware, controllers.chatrooms.getRoomDetail),
-    Router.get("/chat-room/count", authMiddleware, controllers.chatrooms.getUserCount),
-    Router.post("/chat/messages", authMiddleware, controllers.chatmessages.getMessages),
-    Router.post("/chat/send/message", authMiddleware, controllers.chatmessages.sendMessage),
-    Router.post("/chat/message/readmsg", authMiddleware, controllers.chatmessages.readMessage),
-    Router.post("/chat-room/create", authMiddleware, controllers.chatrooms.createRoom),
-    Router.post("/chat-room/update", authMiddleware, controllers.chatrooms.updateRoom),
-    Router.post("/chat-room/user/add", authMiddleware, controllers.chatrooms.addUser),
-    Router.post("/chat-room/user/remove", authMiddleware, controllers.chatrooms.removeUser),
-    
     //Pushnotification
     //Router.post("/pushnotification/sendpushnotification", authMiddleware, controllers.userdeviceinfo.sendpushnotification),
 

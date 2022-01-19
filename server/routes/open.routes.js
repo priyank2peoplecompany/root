@@ -6,6 +6,7 @@ const openAuthentication = require('../middlewares/auth/auth.middleware').openAu
 const routes = [
     //User
     //Router.post("/user/login", openAuthentication, controllers.user.Userlogin),
+    
     Router.post("/user/sendotp", openAuthentication, controllers.user.SendOTP),
     Router.post("/user/validateotp", openAuthentication, controllers.user.ValidateOTP),
 ];
