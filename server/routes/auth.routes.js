@@ -6,7 +6,7 @@ const routes = [
 
     /* Category */
     Router.post("/category/add", authMiddleware, controllers.category.addCategory),
-    Router.post("/category/list", authMiddleware, controllers.category.ListCategory),
+    Router.post("/category/list", authMiddleware, controllers.category.ListCategory), 
     
     //Pushnotification
     //Router.post("/pushnotification/sendpushnotification", authMiddleware, controllers.userdeviceinfo.sendpushnotification),
