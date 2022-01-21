@@ -66,16 +66,9 @@ const userSchema = new Schema({
     device_type: {
         type: String,
         default: null 
-    },
-    created_at: {
-        type: Date,
-        default: Date.now
-    },
-    updated_at: {
-        type: Date,
-        default: Date.now
-    },
+    }   
 }, {
+        timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
         versionKey: false,
         toObject: {
             getters: true

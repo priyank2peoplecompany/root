@@ -14,16 +14,9 @@ const categorySchema = new Schema({
         images: { type: Array, default: '' },
         created_at: { type: Date,default: Date.now },
         updated_at: {type: Date,default: Date.now }    
-    }],
-    created_at: {
-        type: Date,
-        default: Date.now
-    },
-    updated_at: {
-        type: Date,
-        default: Date.now
-    },
+    }]    
 }, {
+        timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
         versionKey: false,
         toObject: {
             getters: true
