@@ -8,6 +8,9 @@ const routes = [
     Router.post("/category/add", authMiddleware, controllers.category.addCategory),
     Router.post("/category/list", authMiddleware, controllers.category.ListCategory), 
     
+    /* Design */
+    Router.post("/design/add", authMiddleware, controllers.design.addDesign),
+
     //Pushnotification
     //Router.post("/pushnotification/sendpushnotification", authMiddleware, controllers.userdeviceinfo.sendpushnotification),
 

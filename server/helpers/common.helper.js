@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 let CryptoJS = require("crypto-js");
 let secretKey = 'GYHcLHmk';
+const sharp = require('sharp');
 
 /** tmpToOriginal function is used for moving uploaded file from tmp folder to respecative folder  */
 exports.tmpToOriginal = (filename, folder, thumb = false) => {
@@ -10,13 +11,23 @@ exports.tmpToOriginal = (filename, folder, thumb = false) => {
 
 /** ensureDirectoryExistence check if directory exists or not if not then create it */
 exports.ensureDirectoryExistence = (filePath) => {
-    var dirname = path.dirname(filePath);
-    if (fs.existsSync(dirname)) {
+    if (fs.existsSync(filePath)) {
         return true;
     }
-    this.ensureDirectoryExistence(dirname);
-    fs.mkdirSync(dirname);
+    //this.ensureDirectoryExistence(dirname);
+    fs.mkdirSync(filePath);
 }
+
+/** Resize Image */
+exports.resizeImage = (fileUrl, dirName,height, width) => {
+    let thumb_file = `server/assets/uploads/${dirName}/thumb_${fileUrl}`;
+    let file = `server/assets/uploads/${dirName}/${fileUrl}`;
+    sharp(file).resize(width, height).toFile(thumb_file, function(err) {
+        if(err) console.log("error=========>",err);
+        else { return `${dirName}/thumb_${fileUrl}`;}
+    });
+    return `${dirName}/thumb_${fileUrl}`;
+}    
 
 /** removeFile is used for removeing file from the directory */
 exports.removeFile = (filename) => {
@@ -34,12 +45,10 @@ exports.removeDirectory = (directory) => {
     })
 }
 
-
 /** Move Uploaded File to the Directory  */
 exports.moveFile = (file, directory, oldImage = null) => {
 
     if (oldImage) this.removeFile(oldImage);
-
     if (file != undefined && file != '') {
         const dirname = `server/assets/uploads/${directory}/`;
         this.ensureDirectoryExistence(dirname);

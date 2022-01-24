@@ -21,7 +21,6 @@ exports.addCategory = (req, res) => {
             if (categoryData) {
                 cres.send(res, {}, 'Category name already exists');
             } else {
-
                 //params.videos = common.moveFiles(params.videos, params.new_videos, 'community', params.removed_videos);    
                 params['images'] = common.moveFiles([],params.images, 'category');
                 if(!params.parent_id){
@@ -91,4 +90,11 @@ exports.ListCategory = (req, res) => {
             }
         });
     }
+}
+
+/**
+ * Get the detail of given Phone Number 
+ */
+ exports.getCategoryDetail = (condition) => {
+    return model.Category.findOne(condition).select('_id name').lean({ getters: true });
 }
