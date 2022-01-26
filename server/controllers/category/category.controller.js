@@ -76,7 +76,7 @@ exports.ListCategory = (req, res) => {
                     let page = params.page;
                     let skip = 0; if (page > 1) { skip = (page - 1) * params.limit }
                     let returndata = { totalrecord: data }
-                    model.Category.find(condition).sort(sortby).skip(skip).limit(params.limit).lean().then(categorydata => {
+                    model.Category.find(condition,{_id:1, images:1, name:1, 'children._id':1, 'children.images':1, 'children.name':1}).sort(sortby).skip(skip).limit(params.limit).lean().then(categorydata => {
                         if (categorydata.length > 0) {
                             returndata['categorydata'] = categorydata;
                             cres.send(res, returndata, 'Category List')
@@ -91,6 +91,64 @@ exports.ListCategory = (req, res) => {
         });
     }
 }
+
+
+/**
+ * @api {post} /category/detail Detailed Category
+ * @apiHeader {Authorization} Authorization Users unique access-key.
+ * @apiName Detailed Category
+ * @apiGroup Category
+ * @apiParam {id}   category_id     Category Id
+ */
+ exports.DetailedCategory = (req, res) => {
+    let required_fields = { category_id: 'string' }
+    let params = req.body;
+    if (vh.validate(res, required_fields, params)) {
+        let condition = { $or: [ { _id: mongoose.Types.ObjectId(params.category_id) }, { 'children._id': mongoose.Types.ObjectId(params.category_id) } ] };
+        model.Category.findOne(condition).then(categorydata => {
+            if (categorydata) {
+                cres.send(res, categorydata, 'Category Details')
+            }
+            else cres.send(res, [], 'No record found');
+        }).catch(err => {
+            cres.error(res, err, {});
+        });
+
+    //     model.Category.aggregate(
+    //         [
+    //             { $match: condition },
+    //             {
+    //                 $lookup: {
+    //                     from: "category_designs",
+    //                     localField: "_id",
+    //                     foreignField: "category_id",
+    //                     as: "designs"
+    //                 }
+    //             },
+    //             {
+    //                 $lookup: {
+    //                     from: "category_designs",
+    //                     localField: "children._id",
+    //                     foreignField: "category_id",
+    //                     as: "child_designs"
+    //                 }
+    //             },    
+    //             {
+    //                 $project: {
+    //                     _id: 1, name: 1, description: 1,children:1, images:1, updated_at: 1, created_at: 1, designs: 1, child_designs: 1
+    //                 }
+    //             },
+    //         ]
+    //     ).then(data => {
+    //         if (data) cres.send(res, data, 'Community List')
+    //         else cres.send(res, [], "No record found");
+    //     }).catch(err => {
+    //         console.log(err);
+    //         cres.error(res, err, {});
+    //     });                
+    }
+}
+
 
 /**
  * Get the detail of given Phone Number 
