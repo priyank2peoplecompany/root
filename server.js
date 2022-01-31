@@ -28,17 +28,8 @@ app.use('/api', [...openApi, ...authApi]);
 app.use("/apidoc", express.static('apidoc'));
 app.use('/uploads', express.static('server/assets/uploads'));
 app.use('/assets', express.static('server/assets/'));
+app.use('/images', express.static('server/assets/uploads/html'));
 app.set('views', './server/templates');
-
-app.get('/', function (req, res) {
-    res.send('Are you lost ?');
-    res.end();
-});
-
-app.get('*', function (req, res) {
-    res.send('Are you lost ?');
-    res.end();
-});
 
 require('dotenv-expand')(require('dotenv').config());
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 1; //Added for Email SSL Cert issue

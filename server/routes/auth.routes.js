@@ -9,6 +9,10 @@ const routes = [
     Router.post("/category/list", authMiddleware, controllers.category.ListCategory), 
     Router.post("/category/detail", authMiddleware, controllers.category.DetailedCategory), 
     
+    /* Common */
+    Router.post("/file/upload", authMiddleware, controllers.common.UploadFiles), // (File Upload )
+    
+
     /* Design */
     Router.post("/design/add", authMiddleware, controllers.design.addDesign),
 
@@ -20,7 +24,7 @@ const routes = [
     Router.post("/user/list", authMiddleware, controllers.user.ListUser),
     Router.get("/user/logout", authMiddleware, controllers.user.UserLogout),
     Router.post("/user/update", authMiddleware, controllers.user.UpdateUser),
-    Router.post("/file/upload", authMiddleware, controllers.user.UploadFiles), // (File Upload )
+    
 
 ];
 module.exports = routes;

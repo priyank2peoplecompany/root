@@ -26,7 +26,6 @@ exports.addDesign = (req, res) => {
         console.log(params);
         let design = [params]
         if(child_category == true){
-            console.log("if=====");
             model.Category.updateOne({ 'children._id': mongoose.Types.ObjectId(params.category_id) },{ $push: { "children.$.design": { $each: design } } }).then(function (udata) {
                 cres.send(res, params, "Design added successfully");
             }).catch(function (err) {
@@ -35,7 +34,6 @@ exports.addDesign = (req, res) => {
             });
         }
         else{
-            console.log("else=====");
             model.Category.updateOne({ _id: mongoose.Types.ObjectId(params.category_id) },{ $push: { "design": { $each: design } } }).then(function (udata) {
                 cres.send(res, params, "Design added successfully");
             }).catch(function (err) {

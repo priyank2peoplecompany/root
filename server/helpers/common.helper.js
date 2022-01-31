@@ -9,6 +9,12 @@ exports.tmpToOriginal = (filename, folder, thumb = false) => {
     fs.rename(`server/assets/tmp/${filename}`, `server/assets/uploads/${folder}/${filename}`, () => { });
 }
 
+
+/** Rename File  */
+exports.renameFile = (name, newName) => {
+    fs.rename(`server/assets/tmp/${name}`, `server/assets/tmp/${newName}`, () => { });
+}
+
 /** ensureDirectoryExistence check if directory exists or not if not then create it */
 exports.ensureDirectoryExistence = (filePath) => {
     if (fs.existsSync(filePath)) {

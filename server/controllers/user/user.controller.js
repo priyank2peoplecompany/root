@@ -250,26 +250,6 @@ exports.getUserDetail = (condition) => {
         .lean({ getters: true });
 }
 
-/**
- * @api {post} /file/upload Upload Files
- * @apiHeader {Authorization} Authorization Users unique access-key.
- * @apiName Upload Files
- * @apiGroup File Upload
- * @apiParam {Array}   files    Photo ( Array of Photos)
- */
-exports.UploadFiles = (req, res) => {    
-    upload(req, res).then(() => {
-        console.log("herehrher");
-        let filesdata = req.body.file;
-        console.log("filesdata=====>",filesdata);
-        if (filesdata.length > 0) cres.send(res, filesdata, "File upload successfully");
-        else cres.error(res, 'Something went wrong', {});
-    }).catch(err => {
-        console.log("err=>",err);
-        cres.error(res, 'Something11 went wrong', {});
-    })
-}
-
 function maintainRedisAndLog(res, data, login) {
     data['socket_id'] = common.generateKey();
     return redis.setKey(data).then(key => {
