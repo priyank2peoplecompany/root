@@ -100,7 +100,7 @@ exports.ListCategory = (req, res) => {
  * @apiGroup Category
  * @apiParam {id}   category_id     Category Id
  */
- exports.DetailedCategory = (req, res) => {
+exports.DetailedCategory = (req, res) => {
     let required_fields = { category_id: 'string' }
     let params = req.body;
     if (vh.validate(res, required_fields, params)) {
@@ -113,39 +113,6 @@ exports.ListCategory = (req, res) => {
         }).catch(err => {
             cres.error(res, err, {});
         });
-
-    //     model.Category.aggregate(
-    //         [
-    //             { $match: condition },
-    //             {
-    //                 $lookup: {
-    //                     from: "category_designs",
-    //                     localField: "_id",
-    //                     foreignField: "category_id",
-    //                     as: "designs"
-    //                 }
-    //             },
-    //             {
-    //                 $lookup: {
-    //                     from: "category_designs",
-    //                     localField: "children._id",
-    //                     foreignField: "category_id",
-    //                     as: "child_designs"
-    //                 }
-    //             },    
-    //             {
-    //                 $project: {
-    //                     _id: 1, name: 1, description: 1,children:1, images:1, updated_at: 1, created_at: 1, designs: 1, child_designs: 1
-    //                 }
-    //             },
-    //         ]
-    //     ).then(data => {
-    //         if (data) cres.send(res, data, 'Community List')
-    //         else cres.send(res, [], "No record found");
-    //     }).catch(err => {
-    //         console.log(err);
-    //         cres.error(res, err, {});
-    //     });                
     }
 }
 

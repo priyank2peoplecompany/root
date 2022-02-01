@@ -15,6 +15,7 @@ const routes = [
 
     /* Design */
     Router.post("/design/add", authMiddleware, controllers.design.addDesign),
+    Router.post("/design/updateHtml", authMiddleware, controllers.design.getDesign),
 
     //Pushnotification
     //Router.post("/pushnotification/sendpushnotification", authMiddleware, controllers.userdeviceinfo.sendpushnotification),
