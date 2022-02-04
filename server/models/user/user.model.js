@@ -7,8 +7,7 @@ const userSchema = new Schema({
     phone: {
         type: String,
         rquired: true,
-        unique: true,
-        //get: getFullUrl,
+        unique: true
     },
     phone2: {
         type: String,
@@ -48,7 +47,7 @@ const userSchema = new Schema({
         default: null
     },
     products: {
-        type: Array,
+        type: String,
         default:null
     },
     icon: {

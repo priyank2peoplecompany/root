@@ -108,12 +108,13 @@ exports.ValidateOTP = (req, res) => {
  * @apiParam {string}       [old_icon]              Old Icon
  * @apiParam {array}        category_ids            Category Ids 
  * @apiParam {string}       company                 Company Name
+ * @apiParam {string}       [phone2]                Phone 2 
  * @apiParam {string}       [slogan]                Slogan
  * @apiParam {string}       [address]               Address
  * @apiParam {string}       [website]               Website
  * @apiParam {string}       [email]                 Email
  * @apiParam {array}        [socials]               Socials
- * @apiParam {array}        [products]              Products
+ * @apiParam {string}       [products]              Products & Service
  * @apiParam {array}        [photos]                Photos ( By default it's null )
  * @apiParam {array}        [new_photos]            New Photos ( if you want to upload new photos then use this parameter)
  * @apiParam {array}        [old_photos]            Old Photos ( If you want to remove photos then use this parameter)
@@ -124,11 +125,12 @@ exports.UpdateUser = (req, res) => {
         category_ids: 'array',
         icon: 'optional|string',
         old_icon: 'optional|string',
-        company: 'company',
+        company: 'string',
         slogan: 'optional|string',
         address: 'optional|string',
         website: 'optional|string',
-        products: 'optional|array',
+        products: 'optional|string',
+        phone2: 'optional|string',
         photos: 'optional|array',
         new_photos: 'optional|array',
         old_photos: 'optional|array'
