@@ -114,8 +114,9 @@ exports.ValidateOTP = (req, res) => {
  * @apiParam {string}       [email]                 Email
  * @apiParam {array}        [socials]               Socials
  * @apiParam {array}        [products]              Products
- * @apiParam {array}        [photos]                Photos
- * @apiParam {array}        [old_photos]            Old Photos
+ * @apiParam {array}        [photos]                Photos ( By default it's null )
+ * @apiParam {array}        [new_photos]            New Photos ( if you want to upload new photos then use this parameter)
+ * @apiParam {array}        [old_photos]            Old Photos ( If you want to remove photos then use this parameter)
  */
 exports.UpdateUser = (req, res) => {
     let required_fields = {
@@ -129,6 +130,7 @@ exports.UpdateUser = (req, res) => {
         website: 'optional|string',
         products: 'optional|array',
         photos: 'optional|array',
+        new_photos: 'optional|array',
         old_photos: 'optional|array'
     }
 
@@ -139,10 +141,18 @@ exports.UpdateUser = (req, res) => {
         this.getUserDetail(condition).then(data => {
             if (data && data._id) {
                 params['icon'] = common.moveFile(params.icon, 'user', params.old_icon);
+                let photos = [];
+                let old_photos = [];
+                if(params.photos) photos = params.photos
+                if(params.old_photos) { 
+                    old_photos = params.old_photos;
+                    delete params.old_photos;
+                }
+                if(params.new_photos.length > 0){
+                    params['photos'] = common.moveFiles(photos,params.new_photos,'user', old_photos);
+                    delete params.new_photos;    
+                }
                 model.User.updateOne({ _id: mongoose.Types.ObjectId(data._id) }, { $set: params }).then(function (udata) {
-                    if (params.icon != undefined && params.icon != '') {
-                        params['icon'] = `${process.env.ASSETS_URL}uploads/${params['icon']}`;
-                    }
                     params['_id'] = req.user._id;
                     cres.send(res, params, "User updated successfully");
                 }).catch(function (err) {

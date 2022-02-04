@@ -60,11 +60,9 @@ exports.addDesign = (req, res) => {
         let project={};
         let condition = { $or:[ {'design._id' : mongoose.Types.ObjectId(params.id)}, {'children.design':{"$elemMatch":{'_id':mongoose.Types.ObjectId(params.id)}}} ]}
         if(params.child_design){
-            //condition = {'children.design':{"$elemMatch":{'_id':mongoose.Types.ObjectId(params.id)}}}
             project['children.design.html'] = 1;
         }
         else{
-            //condition = {'design._id' : mongoose.Types.ObjectId(params.id)}
             project['design.html'] = 1;
         }
 
@@ -81,7 +79,7 @@ exports.addDesign = (req, res) => {
                 returnData['html'] = updateHTML(html,req.user);
                 cres.send(res, returnData, 'Category Details')
             }
-            else cres.send(res, [], 'No record found');
+            else cres.send(res, {}, 'No record found');
         }).catch(err => {
             cres.error(res, err, {});
         });
